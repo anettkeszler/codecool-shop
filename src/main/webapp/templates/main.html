@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="css">
+    <link rel="stylesheet" type="text/css" href="/static/css/shopping-cart.css" />
+</div>
+
+<div th:fragment="copy">
+
+    <div class="container">
+        <ul class="category-selector">
+            <span><a class="categories" href="/" th:classappend="('ALL' == ${selected_category}) ? 'selected' : ''">All</a></span>
+            <span th:each="cat: ${categories}">
+            | <a class="categories" th:href="@{/(category=${cat.id})}" th:classappend="(${cat.id} == ${selected_category}) ? 'selected' : ''" th:text="${cat.name}"></a>
+        </span>
+            <span class="shopping-cart-dropdown">
+            <i class="fas fa-shopping-cart shopping-cart-id"></i>
+            <div class="shopping-cart">
+                <div class="title">
+                    Shopping Cart
+                </div>
+
+                <div class="item">
+                    <div class="buttons">
+                        <span class="delete-btn"><i class="fas fa-times"></i></span>
+                        <span class="like-btn"><i class="fas fa-heart"></i></span>
+                    </div>
+
+                    <div class="image">
+                        <img>
+                    </div>
+
+                    <div class="description">
+                        <span>Name</span>
+                        <span>Description</span>
+                        <span>price</span>
+                    </div>
+
+                    <div class="quantity">
+                        <button class="plus-btn" type="button" name="button">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <input type="text" name="name" value="1">
+                        <button class="minus-btn" type="button" name="button">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                    </div>
+
+                    <div class="total-price">$0</div>
+                </div>
+
+                <div class="payment-div">
+                    <a class="payment-button" href="/payment">To payment</a>
+                </div>
+            </div>
+        </span>
+
+        </ul>
+        <!--    <div th:each="cat,iterStat: ${all_products.getAll()}">-->
+        <!--        <a href="#" class="card-text" th:text="${cat.name}">Product description... </a>-->
+        <div id="products" class="row">
+            <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod : ${products}">
+                <div class="card">
+                    <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
+                    <div class="card-header">
+                        <h4 class="card-title" th:text="${prod.name}">Product name</h4>
+                        <p class="card-text" th:text="${prod.description}">Product description... </p>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-text">
+                            <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
+                        </div>
+                        <div>
+                            <a class="card__add-to-cart-button" href="#">Adopt</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+</body>
+</html>
